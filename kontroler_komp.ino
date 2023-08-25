@@ -25,7 +25,7 @@
 
 PCF8574 expander(0x20);
 
-const int joystick_dead_zone = 100;
+const int joystick_dead_zone = 256;
 int pressed_shift = 0;
 
 bool p_tab_sw[9][5] = {false};
@@ -37,14 +37,10 @@ int32_t t_stamp = 0;
 uint16_t mode_analog = 0;
 
 void read_controller();
-//void set_action();
+void set_action();
 
 void setup() {
   Keyboard.begin();
-  /*/Serial.begin(9600);
-    while (!Serial) {
-    ;
-    }/*/
   for (int i = 5; i < 8; ++i)
     pinMode(i, INPUT_PULLUP);
   for (int i = 8; i < 13; ++i)
@@ -62,7 +58,6 @@ void setup() {
       tab_sw[i][j] = true;
     }
   }
-  //digitalWrite(expander,0,LOW);
 }
 
 void loop() {
@@ -75,25 +70,6 @@ void loop() {
 
   read_controller();
   set_action();
-
-  /*/wypisanie
-    Serial.print("  TAB: ");
-    for (int i = 0; i < 9; ++i) {
-    for (int j = 0; j < 5; ++j) {
-      Serial.print(tab_sw[i][j]);
-    }
-    Serial.print(" ");
-    }
-    Serial.println("");
-    Serial.print("P-TAB: ");
-    for (int i = 0; i < 9; ++i) {
-    for (int j = 0; j < 5; ++j) {
-      Serial.print(p_tab_sw[i][j]);
-    }
-    Serial.print(" ");
-    }
-    Serial.println("");
-    Serial.println(""); /*/
 
   //rewrite tab
   for (int i = 0; i < 9; ++i) {
@@ -115,18 +91,14 @@ void read_controller() {
   //read joysticks
   for (int i = 0; i < 3; ++i) {
     for (int j = 0; j < 2; ++j) {
-      // A0=18, A1=19, etc.. A5=23
       int16_t axis = analogRead(2 * i + 18 + j) - 512;
-      //Serial.print(axis+512);
-      //Serial.print("  ");
       if (axis < -joystick_dead_zone) {
-        //rewrite if necessary
         //directions: up,down,right,left,push
         tab_sw[6 + i][2 * j + 0] = 1;
         tab_sw[6 + i][2 * j + 1] = 0;
       }
       else if (axis > joystick_dead_zone) {
-        //rewrite too if necessary, directions 5 lines above
+        //directions: 5 lines above
         tab_sw[6 + i][2 * j + 0] = 0;
         tab_sw[6 + i][2 * j + 1] = 1;
       }
@@ -136,8 +108,7 @@ void read_controller() {
       }
     }
     tab_sw[6 + i][4] = digitalRead(i + 5);
-    //Serial.println("");
-  }/**/
+  }
 }
 
 void set_action() {
@@ -246,7 +217,9 @@ void set_action() {
     Keyboard.release(KEY_LEFT_CTRL);
   }
   if (p_tab_sw[5][2] == 1 && tab_sw[5][2] == 0) { //wciśnięto F3
-    Keyboard.write('p'); //p
+    Keyboard.press(KEY_LEFT_ALT);
+    Keyboard.write(KEY_INSERT); // alt+ins
+    Keyboard.release(KEY_LEFT_ALT);
   }
   if (p_tab_sw[5][3] == 1 && tab_sw[5][3] == 0) { //wciśnięto F4
     Keyboard.write(KEY_ESC); //esc
