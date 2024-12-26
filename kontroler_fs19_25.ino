@@ -405,37 +405,21 @@ void set_action_fs25() {
   if (p_tab_sw[3][4] == 1 && tab_sw[3][4] == 0) { //wciśnięto D5
     Keyboard.write(KEY_DELETE); //delete
   }
-  /*if (p_tab_sw[4][0] == 1 && tab_sw[4][0] == 0) { //wciśnięto E1
-    Keyboard.press(KEY_LEFT_ALT);
-    Keyboard.write('c'); //alt+c
-    Keyboard.release(KEY_LEFT_ALT);
+  if (p_tab_sw[4][0] == 1 && tab_sw[4][0] == 0) { //wciśnięto E1
+    Keyboard.write('e'); //Num/
   }
   if (p_tab_sw[4][1] == 1 && tab_sw[4][1] == 0) { //wciśnięto E2
-    Keyboard.press(KEY_LEFT_ALT);
-    Keyboard.write('x'); //alt+x
-    Keyboard.release(KEY_LEFT_ALT);
+    Keyboard.write(KEY_KP_PLUS); //Num+
   }
   if (p_tab_sw[4][2] == 1 && tab_sw[4][2] == 0) { //wciśnięto E3
-    Keyboard.press(KEY_LEFT_ALT);
-    Keyboard.press(KEY_PAGE_UP); //alt+PgUp
-  }
-  if (p_tab_sw[4][2] == 0 && tab_sw[4][2] == 1) { //puszczono E3
-    Keyboard.release(KEY_PAGE_UP); //alt+PgUp
-    Keyboard.release(KEY_LEFT_ALT);
+    Keyboard.write(KEY_KP_MINUS); //Num-
   }
   if (p_tab_sw[4][3] == 1 && tab_sw[4][3] == 0) { //wciśnięto E4
-    Keyboard.press(KEY_LEFT_ALT);
-    Keyboard.press(KEY_PAGE_DOWN); //alt+PgDn
-  }
-  if (p_tab_sw[4][3] == 0 && tab_sw[4][3] == 1) { //puszczono E4
-    Keyboard.release(KEY_PAGE_DOWN); //alt+PgDn
-    Keyboard.release(KEY_LEFT_ALT);
+    Keyboard.write(KEY_KP_ASTERISK); //Num*
   }
   if (p_tab_sw[4][4] == 1 && tab_sw[4][4] == 0) { //wciśnięto E5
-    Keyboard.press(KEY_LEFT_ALT);
-    Keyboard.write(KEY_DELETE); //alt+delete
-    Keyboard.release(KEY_LEFT_ALT);
-  }*/
+    Keyboard.write(KEY_KP_SLASH); //Num/
+  }
   if (p_tab_sw[5][0] == 1 && tab_sw[5][0] == 0) { //wciśnięto F1
     Keyboard.write('c'); //c
   }
@@ -535,15 +519,27 @@ void set_action_fs25() {
     }
   }
   if (p_tab_sw[8][0] == 1 && tab_sw[8][0] == 0) { //wciśnięto Joy3↑
-    Keyboard.write(KEY_KP_PLUS); //Num+
+    Keyboard.press(KEY_UP_ARROW); //↑
+  }
+  if (p_tab_sw[8][0] == 0 && tab_sw[8][0] == 1) { //puszczono Joy3↑
+    Keyboard.release(KEY_UP_ARROW); //↑
   }
   if (p_tab_sw[8][1] == 1 && tab_sw[8][1] == 0) { //wciśnięto Joy3↓
-    Keyboard.write(KEY_KP_MINUS); //Num-
+    Keyboard.press(KEY_DOWN_ARROW); //↓
+  }
+  if (p_tab_sw[8][1] == 0 && tab_sw[8][1] == 1) { //puszczono Joy3↓
+    Keyboard.release(KEY_DOWN_ARROW); //↓
   }
   if (p_tab_sw[8][2] == 1 && tab_sw[8][2] == 0) { //wciśnięto Joy3→
-    Keyboard.write(KEY_KP_ASTERISK); //Num*
+    Keyboard.press(KEY_RIGHT_ARROW); //→
+  }
+  if (p_tab_sw[8][2] == 0 && tab_sw[8][2] == 1) { //puszczono Joy3→
+    Keyboard.release(KEY_RIGHT_ARROW); //→
   }
   if (p_tab_sw[8][3] == 1 && tab_sw[8][3] == 0) { //wciśnięto Joy3←
-    Keyboard.write(KEY_KP_SLASH); //Num/
+    Keyboard.press(KEY_LEFT_ARROW); //←
+  }
+  if (p_tab_sw[8][3] == 0 && tab_sw[8][3] == 1) { //puszczono Joy3←
+    Keyboard.release(KEY_LEFT_ARROW); //↑
   }
  }
